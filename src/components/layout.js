@@ -1,0 +1,152 @@
+import Card from './card';
+import { useEffect, useState } from 'react'
+import '../styles/layout.css'
+export default function Layout() {
+
+    const [data, setData] = useState([])
+    const [users, setUsers] = useState([])
+
+    const [status, setstatus] = useState(['Todo', 'Backlog', 'In progress'])
+    const [priority, setPriority] = useState(['No priority', 'Low', 'Medium', 'High', 'Urgent'])
+    const [names, setnames] = useState();
+
+    useEffect(() => {
+        console.log('iii')
+        if (localStorage.getItem('selection')) {
+            setSelection(localStorage.getItem('selection'));
+            document.getElementById('group').value = localStorage.getItem('selection')
+        }
+
+        fetch('https://api.quicksell.co/v1/internal/frontend-assignment').then(res => res.json()).then(res => { setData(res.tickets); let arr = res.tickets.map(elem => (elem.userId)); let uniqueItems = [...new Set(arr)]; setUsers(uniqueItems); setnames(res.users) })
+    }, [])
+
+
+
+
+
+
+
+
+    const [selection, setSelection] = useState('None')
+
+    const [order, setOrder] = useState('None')
+
+    function handleSelectChange(e) {
+        localStorage.setItem('selection', e.target.value)
+        setSelection(e.target.value);
+
+    }
+
+    function handleOrderChange(e) {
+
+        setOrder(e.target.value);
+
+
+    }
+
+    console.log(selection)
+    console.log(order)
+
+
+    return (
+        <div>
+
+
+            <div className='btns'>
+                <button id='toggle' onClick={() => { 
+                    if(document.getElementsByClassName('oop')[0].style.transform == 'scale(0)')
+                    {document.getElementsByClassName('oop')[0].style.transform = 'scale(1)';
+            document.getElementsByClassName('oop')[1].style.transform = 'scale(1)' }
+            else
+            {
+                {document.getElementsByClassName('oop')[0].style.transform = 'scale(0)';
+            document.getElementsByClassName('oop')[1].style.transform = 'scale(0)' }
+            }}}>Display</button>
+                <select id="group" className='oop' onChange={handleSelectChange}>
+                    <option value="None">None</option>
+                    <option value="Status">Status</option>
+                    <option value="User">User</option>
+                    <option value="Priority">Priority</option>
+                </select>
+
+                <select name="order" className='oop' onChange={handleOrderChange} id="order">
+                    <option value="None">None</option>
+                    <option value="priority">priority</option>
+                    <option value="title">title</option>
+                </select>
+            </div>
+
+            <div className='display' >
+
+                {selection === 'Status' && <div className='status' style={{ display: 'flex', gap: '7rem' }}>
+                    {status.map(elem => {
+                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', overflowY:'scroll', height:'80vh' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div id='layout-title'>{elem}</div>
+                                <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>+</div>
+                                    <div>...</div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                {data.length > 0 && data.filter((val => (elem === val.status))).sort((a, b) => order === 'title' ?
+                                    a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
+
+                            </div>
+                        </div>
+                    })}
+                </div>}
+
+
+                {selection === 'User' && <div className='user' style={{ display: 'flex', justifyContent: "space-between", overflow: 'scroll', gap: '7rem' ,width:'fit-content'}}>
+                    {users.length && users.map(elem => {
+                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', overflowY:'scroll', height:'80vh' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div id='layout-title'>{names.find((n => n.id === elem)).name}</div>
+                                <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>+</div>
+                                    <div>...</div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                {data.length > 0 && data.filter((val => (elem === val.userId))).sort((a, b) => order === 'title' ?
+                                    a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
+
+                            </div>
+                        </div>
+                    })}
+                </div>}
+
+                {selection === 'Priority' && <div className='user' style={{ display: 'flex', justifyContent: "space-between", gap: '7rem', overflow: 'scroll', width:'fit-content' }}>
+                    {priority.length && priority.map(elem => {
+                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', height:'80vh',  overflow:'auto'}}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div id='layout-title'>{elem}</div>
+                                <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>+</div>
+                                    <div>...</div>
+                                </div>
+
+                            </div>
+                            <div>
+
+                                {data.length > 0 && data.filter((val => (elem === priority[val.priority]))).sort((a, b) => order === 'title' ?
+                                    a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
+
+                            </div>
+                        </div>
+                    })}
+                </div>}
+
+            </div>
+
+
+        </div>
+    )
+}
