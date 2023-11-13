@@ -1,17 +1,15 @@
 .display{
    
    margin: auto;
-   padding: 1rem 3rem;
+   padding: 1rem 0 1rem 2rem;
    height: 80vh;
    background-color: rgb(217, 221, 232);
    column-width: 30%;
    overflow: scroll;
 }
 #toggle{
-    padding: 0.5rem 2rem;
-    margin: 1rem 0;
+    padding: 0.25rem 1rem;
     font-size: 1.0125rem;
-
 }
 .btns{
     
@@ -19,22 +17,26 @@
     display: flex;
     justify-content: center;
     gap: 0.75rem;
+    margin: 0.5rem 0;
+    
+    
     
 }
 
 
+
+
 #order, #group{
     transform: scale(0);
-    padding: 0.5rem 2rem;
-    margin: 1rem 0;
-    font-size: 1.0125rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
 }
 
 
 
 
 #layout-title{
-    
+    font-size: 0.90rem;
     font-weight: 700;
 }
 
@@ -55,4 +57,5 @@
   .container-div:hover::-webkit-scrollbar-track {
     background-color: #e0e0e0; /* Adjust the background color as needed */
   }
+  
   

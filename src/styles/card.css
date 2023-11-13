@@ -1,16 +1,18 @@
 .card{
     
-    height: 16.5vh;
-    display: flex;
-    flex-direction: column;
+    
+    height: fit-content;
+   
     
     border: solid rgb(255, 255, 255) 1px;
-    min-width: 300px;
-    margin: 3rem auto;
+    width: 300px;
+    
     padding: 0.5rem 0.5rem 0 0.5rem;
     background-color: rgb(255, 255, 255);
     overflow: scroll;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-bottom: 2rem;
+    border-radius: 3px;
     
 }
 
@@ -19,7 +21,7 @@
     
     width: fit-content;
 
-    font-size: 1.1rem;
+    font-size: 0.85rem;
 
     font-weight: 700;
 
@@ -30,7 +32,7 @@
 #card-id{
 
     color: rgb(152, 173, 173);
-    font-size: 0.79rem;
+    font-size: 0.69rem;
     margin: 0.5rem 0;
     font-weight: 500;
     
@@ -48,11 +50,12 @@
     transform: scale(0.65);
     margin-left: 0;
     
+    
 }
 
-#card-title{
-    font-weight: 700;
-    font-size: small;
+.card-title{
+    
+    font-size: 0.65rem;
     line-height: 20px;
     
 }

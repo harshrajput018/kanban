@@ -10,17 +10,17 @@ export default function Card({elem}){
         <div className="card">
             <div id='card-name'>{elem.name}</div>
             <div id='card-id'>{elem.id}</div>
-            <div id={elemId} onClick={
+            <div className={  `card-title ${elemId}` }  onClick={
                 
                 ()=>{
                     console.log(reducedTitle===elem.title)
-                    if(document.getElementById(elemId).innerText!=elem.title)
+                    if(document.getElementsByClassName(elemId)[0].innerText!=elem.title)
                     {
                         console.log('up')
-                        document.getElementById(elemId).innerText=elem.title
+                        document.getElementsByClassName(elemId)[0].innerText=elem.title
                     }
                     else
-                    document.getElementById(elemId).innerText=reducedTitle
+                    document.getElementsByClassName(elemId)[0].innerText=reducedTitle
                     }}>{reducedTitle}</div>
             {elem.tag.length>0 && elem.tag.map(val=>{
                 return(<div id='card-tag'>{val}</div>)

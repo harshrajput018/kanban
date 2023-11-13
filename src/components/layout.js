@@ -52,16 +52,19 @@ export default function Layout() {
         <div>
 
 
-            <div className='btns'>
-                <button id='toggle' onClick={() => { 
-                    if(document.getElementsByClassName('oop')[0].style.transform == 'scale(0)')
-                    {document.getElementsByClassName('oop')[0].style.transform = 'scale(1)';
-            document.getElementsByClassName('oop')[1].style.transform = 'scale(1)' }
-            else
-            {
-                {document.getElementsByClassName('oop')[0].style.transform = 'scale(0)';
-            document.getElementsByClassName('oop')[1].style.transform = 'scale(0)' }
-            }}}>Display</button>
+            <div style={{height:'fit-content',padding:'0'}} className='btns'>
+                <button style={{fontSize:'0.75rem'}} id='toggle' onClick={() => {
+                    if (document.getElementsByClassName('oop')[0].style.transform == 'scale(0)') {
+                        document.getElementsByClassName('oop')[0].style.transform = 'scale(1)';
+                        document.getElementsByClassName('oop')[1].style.transform = 'scale(1)'
+                    }
+                    else {
+                        {
+                            document.getElementsByClassName('oop')[0].style.transform = 'scale(0)';
+                            document.getElementsByClassName('oop')[1].style.transform = 'scale(0)'
+                        }
+                    }
+                }}>Display</button>
                 <select id="group" className='oop' onChange={handleSelectChange}>
                     <option value="None">None</option>
                     <option value="Status">Status</option>
@@ -78,9 +81,9 @@ export default function Layout() {
 
             <div className='display' >
 
-                {selection === 'Status' && <div className='status' style={{ display: 'flex', gap: '7rem' }}>
+                {selection === 'Status' && <div className='user each' style={{ display: 'flex', justifyContent: "flex-start", overflow: 'scroll', gap: '7rem', width: 'fit-content',  }}>
                     {status.map(elem => {
-                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', overflowY:'scroll', height:'80vh' }}>
+                        return <div style={{ display: 'flex', flexDirection: 'column', overflow: 'scroll', gap: '1rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div id='layout-title'>{elem}</div>
                                 <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -90,20 +93,21 @@ export default function Layout() {
 
                             </div>
 
-                            <div>
-
-                                {data.length > 0 && data.filter((val => (elem === val.status))).sort((a, b) => order === 'title' ?
-                                    a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
-
+                            <div style={{    overflow:'scroll', height:'75vh',  }}>
+                                {data.length > 0 && data.filter(val => elem === val.status).sort((a, b) => (order === 'title' ? a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority)).map(e => {
+                                    let obj = { ...e };
+                                    obj.name = names.find(n => n.id === e.userId).name;
+                                    return (<Card elem={obj} key={e.id} />);
+                                })}
                             </div>
                         </div>
                     })}
                 </div>}
 
 
-                {selection === 'User' && <div className='user' style={{ display: 'flex', justifyContent: "space-between", overflow: 'scroll', gap: '7rem' ,width:'fit-content'}}>
+                {selection === 'User' && <div className='user each' style={{ display: 'flex', justifyContent: "flex-start", overflowX: 'scroll', gap: '7rem', width: 'fit-content' }}>
                     {users.length && users.map(elem => {
-                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', overflowY:'scroll', height:'80vh' }}>
+                        return <div  style={{ display: 'flex', flexDirection: 'column', overflowY: 'scroll', gap: '1rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div id='layout-title'>{names.find((n => n.id === elem)).name}</div>
                                 <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -113,7 +117,7 @@ export default function Layout() {
 
                             </div>
 
-                            <div>
+                            <div style={{    overflow:'scroll', height:'75vh',  }}>
 
                                 {data.length > 0 && data.filter((val => (elem === val.userId))).sort((a, b) => order === 'title' ?
                                     a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
@@ -123,9 +127,9 @@ export default function Layout() {
                     })}
                 </div>}
 
-                {selection === 'Priority' && <div className='user' style={{ display: 'flex', justifyContent: "space-between", gap: '7rem', overflow: 'scroll', width:'fit-content' }}>
+                {selection === 'Priority' && <div className='user each' style={{ display: 'flex', justifyContent: "flex-start", gap: '7rem', overflowX: 'scroll', width: 'fit-content' }}>
                     {priority.length && priority.map(elem => {
-                        return <div className='container-div' style={{ display: 'flex', flexDirection: 'column', height:'80vh',  overflow:'auto'}}>
+                        return <div  style={{ display: 'flex', flexDirection: 'column', overflow: 'auto', gap: '1rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div id='layout-title'>{elem}</div>
                                 <div style={{ display: 'flex', width: '10%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -134,7 +138,7 @@ export default function Layout() {
                                 </div>
 
                             </div>
-                            <div>
+                            <div style={{    overflow:'scroll', height:'75vh',  }}>
 
                                 {data.length > 0 && data.filter((val => (elem === priority[val.priority]))).sort((a, b) => order === 'title' ?
                                     a.title.toLowerCase().localeCompare(b.title.toLowerCase()) : a.priority - b.priority).map(e => { let obj = { ...e }; obj.name = names.find(n => n.id === e.userId).name; return (<Card elem={obj} />) })}
