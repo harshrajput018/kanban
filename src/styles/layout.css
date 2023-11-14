@@ -1,7 +1,7 @@
 .display{
    
    margin: auto;
-   padding: 1rem 0 1rem 2rem;
+   padding: 1rem 1rem 1rem 2rem;
    height: 80vh;
    background-color: rgb(217, 221, 232);
    column-width: 30%;
@@ -45,17 +45,18 @@
   
   /* Style for the scrollbar */
   .container-div::-webkit-scrollbar {
-    width: 12px; /* Adjust the width of the scrollbar */
+    
+    height: 14px; /* Adjust the width of the scrollbar */
   }
   
   .container-div::-webkit-scrollbar-thumb {
-    background-color: #c4bdbd; /* Adjust the background color as needed */
+    background-color: #d8cccc; /* Adjust the background color as needed */
     border-radius: 6px; /* Adjust the border-radius to make it rounded */
   }
   
   /* Show the scrollbar track (background) when hovering over the container div */
   .container-div:hover::-webkit-scrollbar-track {
-    background-color: #e0e0e0; /* Adjust the background color as needed */
+    background-color: #f1eaea; /* Adjust the background color as needed */
   }
   
   

@@ -47,6 +47,8 @@ export default function Layout() {
     console.log(selection)
     console.log(order)
 
+    localStorage.setItem('toggle',false)
+
 
     return (
         <div>
@@ -54,12 +56,14 @@ export default function Layout() {
 
             <div style={{height:'fit-content',padding:'0'}} className='btns'>
                 <button style={{fontSize:'0.75rem'}} id='toggle' onClick={() => {
-                    if (document.getElementsByClassName('oop')[0].style.transform == 'scale(0)') {
+                    if (localStorage.getItem('toggle')==='false') {
                         document.getElementsByClassName('oop')[0].style.transform = 'scale(1)';
                         document.getElementsByClassName('oop')[1].style.transform = 'scale(1)'
+                        localStorage.setItem('toggle',true)
                     }
                     else {
                         {
+                            localStorage.setItem('toggle',false)
                             document.getElementsByClassName('oop')[0].style.transform = 'scale(0)';
                             document.getElementsByClassName('oop')[1].style.transform = 'scale(0)'
                         }
@@ -79,7 +83,7 @@ export default function Layout() {
                 </select>
             </div>
 
-            <div className='display' >
+            <div className='display container-div' >
 
                 {selection === 'Status' && <div className='user each' style={{ display: 'flex', justifyContent: "flex-start", overflow: 'scroll', gap: '7rem', width: 'fit-content',  }}>
                     {status.map(elem => {
