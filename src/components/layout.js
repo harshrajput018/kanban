@@ -47,7 +47,14 @@ export default function Layout() {
     console.log(selection)
     console.log(order)
 
-    localStorage.setItem('toggle',false)
+    useEffect(()=>{
+
+        localStorage.setItem('toggle',false)
+        console.log('daada')
+
+    },[])
+
+    
 
 
     return (
